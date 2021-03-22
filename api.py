@@ -18,8 +18,6 @@ with open(secret_file) as f:
 
 KEY = unquote(secrets['Decoding'])
 
-
-
 URL = 'http://apis.data.go.kr/1613000/BldRgstService_v2/getBrExposPubuseAreaInfo'
 queryParams = '?' + urlencode(
     {
@@ -42,15 +40,12 @@ decode_data = response.decode('utf-8')
 xml_parse = xmltodict.parse(decode_data)
 xml_dict = json.loads(json.dumps(xml_parse))
 
-print(xml_dict)
+
+# File write
 with open('api.json', 'w') as outfile:
     json.dump(xml_dict, outfile, ensure_ascii=False)
 
 
-# cc = xmltodict.parse(tree) # return collections.OrderedDict
-# dd = json.loads(json.dumps(cc)) # return dict
-# animals = dd['animals']['animal']
-# print(animals) # 결과를 출력한다
 
 
 
