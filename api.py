@@ -68,8 +68,7 @@ for law_code in law_codes:
 
 
 #%%
-
-# To make Columns
+# make Columns
 columns = ['대지주소','시군구코드','법정동코드','동명칭','호명칭','층구분코드','층번호','면적(전용면적)','건물명','번','지','주용도코드']
 
 with open('area.csv', "w", encoding='utf-8-sig', newline='') as f:
@@ -97,18 +96,22 @@ for law_code in law_codes:
 
     for item in items[['items']]:
         data = [
-            isNone(item['platPlc']),
-            isNone(item['sigunguCd']),
-            isNone(item['bjdongCd']),
-            isNone(item['dongNm']),
-            isNone(item['hoNm']),
-            isNone(item['flrGbCd']),
-            isNone(item['flrNo']),
-            isNone(item['area']),
-            isNone(item['bldNm']),
-            isNone(item['bun']),
-            isNone(item['ji']),
-            isNone(item['mainPurpsCdNm'])]
+            isNone(item['platPlc']),# 대지주소
+            isNone(item['sigunguCd']),# 시군구코드
+            isNone(item['bjdongCd']),# 법정동코드
+            isNone(item['dongNm']),# 동명칭
+            isNone(item['hoNm']),# 호명칭
+            isNone(item['flrGbCd']),# 층구분코드
+            isNone(item['flrNo']),# 층번호
+            isNone(item['area']),# 면적(전용면적)
+            isNone(item['bldNm']),# 건물명
+            isNone(item['bun']),# 번
+            isNone(item['ji']),# 지
+            isNone(item['mainPurpsCdNm']),# 용도코드명
+            isNone(item['mainPurpsCd']),# 주용도코드
+            isNone(item['etcPurps']),# 기타용도
+        ]
+
 
         with open('area.csv', "a", encoding='utf-8-sig', newline='') as f:
             cw = csv.writer(f)
@@ -181,15 +184,36 @@ for law_code in not_valid_codes:
 
 
 #%%
-# File write
-def writeJSON(file_name, data) -> None:
-    with open(file_name, 'w') as outfile:
+# Write JSON file
+def writeJSON(file_name, data, mode) -> None:
+    with open(file_name, mode) as outfile:
         json.dump(data, outfile, ensure_ascii=False)
 
+# Write CSV file
+def writeCSV(file_name, data, mode) -> None:
+    with open(file_name, mode, encoding='utf-8-sig', newline='') as f:
+        cw = csv.writer(f)
+        cw.writerow(data)
 
-writeJSON('api.json', querySender(URL, KEY, bjdongCd='10200', numOfRows=3))
-
-
+# get data from request parameter
+def getDataFromPara(item):
+    data = [
+        isNone(item['platPlc']),# 대지주소
+        isNone(item['sigunguCd']),# 시군구코드
+        isNone(item['bjdongCd']),# 법정동코드
+        isNone(item['dongNm']),# 동명칭
+        isNone(item['hoNm']),# 호명칭
+        isNone(item['flrGbCd']),# 층구분코드
+        isNone(item['flrNo']),# 층번호
+        isNone(item['area']),# 면적(전용면적)
+        isNone(item['bldNm']),# 건물명
+        isNone(item['bun']),# 번
+        isNone(item['ji']),# 지
+        isNone(item['mainPurpsCdNm']),# 용도코드명
+        isNone(item['mainPurpsCd']),# 주용도코드
+        isNone(item['etcPurps']),# 기타용도
+    ]
+    return data
 
 
 # %%
