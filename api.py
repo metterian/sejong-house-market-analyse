@@ -101,7 +101,7 @@ for law_code in law_codes:
     totalCount = bld_info['response']['body']['totalCount']
     count[law_code] = totalCount
 
-
+#%%
 # Columns setting
 columns = ['대지주소', '시군구코드', '법정동코드', '동명칭', '호명칭', '층구분코드', '층번호', '면적(전용면적)', '건물명', '번', '지', '용도코드명', '주용도코드', '기타용도']
 writeCSV(file_name='전유부.csv', data=columns, mode='w')
